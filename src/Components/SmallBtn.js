@@ -15,7 +15,7 @@ import {
 import { useAtom } from "jotai";
 import { walletAtom } from "../atoms";
 import { useState } from "react";
-import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 function SmallBtn({
   children,
@@ -139,6 +139,11 @@ function SmallBtn({
           </ModalBody>
 
           <ModalFooter>
+            <CopyToClipboard text={wallet} onCopy={handleCopy}>
+              <Button colorScheme="blue" mr={3}>
+                {copied ? "Copied!" : "Copy"}
+              </Button>
+            </CopyToClipboard>
             <Button colorScheme="blue" mr={3} onClick={onReceiveClose}>
               Close
             </Button>
