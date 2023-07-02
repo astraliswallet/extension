@@ -45,6 +45,7 @@ function Main() {
     setTokenType("");
   };
 
+  // Handle Topup Function
   const handleTopup = () => {
     console.log(TopupAmount);
     setIsTopupOpen(false);

@@ -5,13 +5,16 @@ import { walletCreatedAtom, walletAtom } from "../atoms";
 function Home() {
   const [walletCreated, setWalletCreated] = useAtom(walletCreatedAtom);
   const [wallet, setWallet] = useAtom(walletAtom);
-  // Add createWallet function here
+
+  // Handle createWallet function here
   const handleCreateWallet = () => {
     setWalletCreated(true);
     // generate key pair here
+
     // store key pair in walletAtom
-    setWallet("Address");
+    setWallet("Address"); // replace "Address" with the generated key pair
   };
+
   return (
     <Flex justify="center" alignItems="center" w="100%">
       <Button
