@@ -22,7 +22,22 @@ import Sidebar from "../Components/Sidebar";
 import SmallBtn from "../Components/SmallBtn";
 import { useAtom } from "jotai";
 import { walletAtom } from "../atoms";
+// import { generateKey } from "../utils/utils";
+// import { useWallet } from "@solana/wallet-adapter-react";
+// import * as ed from '@noble/ed25519'
+// import { sha512 } from '@noble/hashes/sha512'
+// ed.etc.sha512Sync = (...m) => sha512(ed.etc.concatBytes(...m))
+
 function Main() {
+  
+  const formatWalletAddress = (address) => {
+    if (address.length > 6) {
+      const start = address.slice(0, 3);
+      const end = address.slice(-3);
+      return `${start}.....${end}`;
+    }
+    return address;
+  };
   // The string you want to encode in the QR code
   const qrString = "Some string to encode in QR code";
 
@@ -136,7 +151,7 @@ function Main() {
         _focus={{ boxShadow: "none" }}
         onClick={() => setIsTopupOpen(true)}
       >
-        <i> Top Up Wallet</i>
+        <i>Deposit Crypto</i>
       </Button>
 
       {/* Topup Wallet */}
