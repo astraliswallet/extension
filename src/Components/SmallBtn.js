@@ -15,7 +15,8 @@ import {
 import { useAtom } from "jotai";
 import { walletAtom } from "../atoms";
 import { useState } from "react";
-// import ModalComponent from "./ModalComponent";
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+
 function SmallBtn({
   children,
   bg,
@@ -27,6 +28,12 @@ function SmallBtn({
   amount,
   handleSend,
 }) {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    setCopied(true);
+  };
+
   const [wallet, setWallet] = useAtom(walletAtom);
   const [isOpen, setIsOpen] = useState(false);
   const [receiveOpen, setReceiveOpen] = useState(false);

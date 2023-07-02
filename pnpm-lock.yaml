@@ -19,6 +19,7 @@ specifiers:
   jotai: ^2.2.1
   qrcode.react: ^3.1.0
   react: ^18.2.0
+  react-copy-to-clipboard: ^5.1.0
   react-dom: ^18.2.0
   react-icons: ^4.10.1
   react-scripts: 5.0.1
@@ -44,6 +45,7 @@ dependencies:
   jotai: 2.2.1_react@18.2.0
   qrcode.react: 3.1.0_react@18.2.0
   react: 18.2.0
+  react-copy-to-clipboard: 5.1.0_react@18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-icons: 4.10.1_react@18.2.0
   react-scripts: 5.0.1_react@18.2.0
@@ -11123,6 +11125,16 @@ packages:
       react: ^15.3.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
     dependencies:
       '@babel/runtime': 7.22.5
+      react: 18.2.0
+    dev: false
+
+  /react-copy-to-clipboard/5.1.0_react@18.2.0:
+    resolution: {integrity: sha512-k61RsNgAayIJNoy9yDsYzDe/yAZAzEbEgcz3DZMhF686LEyukcE1hzurxe85JandPUG+yTfGVFzuEw3xt8WP/A==}
+    peerDependencies:
+      react: ^15.3.0 || 16 || 17 || 18
+    dependencies:
+      copy-to-clipboard: 3.3.3
+      prop-types: 15.8.1
       react: 18.2.0
     dev: false
 
