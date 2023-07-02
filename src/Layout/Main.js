@@ -29,7 +29,6 @@ import { walletAtom } from "../atoms";
 // ed.etc.sha512Sync = (...m) => sha512(ed.etc.concatBytes(...m))
 
 function Main() {
-  
   const formatWalletAddress = (address) => {
     if (address.length > 6) {
       const start = address.slice(0, 3);
@@ -108,7 +107,7 @@ function Main() {
         setIsTopupOpen={setIsTopupOpen}
       />
       <Text>
-        <i>{wallet}</i>
+        <i>{formatWalletAddress(wallet)}</i>
       </Text>
       <Flex gap="12px">
         <SmallBtn
