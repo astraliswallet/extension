@@ -22,6 +22,7 @@ import Sidebar from "../Components/Sidebar";
 import SmallBtn from "../Components/SmallBtn";
 import { useAtom } from "jotai";
 import { walletAtom } from "../atoms";
+import { networkSelector } from "../Components/networkSelector";
 // import { generateKey } from "../utils/utils";
 // import { useWallet } from "@solana/wallet-adapter-react";
 // import * as ed from '@noble/ed25519'
@@ -38,8 +39,6 @@ function Main() {
     return address;
   };
   // The string you want to encode in the QR code
-  const qrString = "Some string to encode in QR code";
-
   // State to control the drawer
   const [isOpen, setIsOpen] = useState(false);
   const [recipient, setRecipient] = useState("");
@@ -48,7 +47,7 @@ function Main() {
   const [wallet, setWallet] = useAtom(walletAtom);
   const [isTopupOpen, setIsTopupOpen] = useState(false);
   const [TopupAmount, setTopupAmount] = useState("");
-
+  const qrString = wallet ? wallet : '';
   // Handle Send Function
   const handleSend = (recipient, tokenType, amount) => {
     console.log(recipient, tokenType, amount);
@@ -88,6 +87,7 @@ function Main() {
       fontSize="20px"
       cursor={"pointer"}
     >
+    <networkSelector />
       <Flex h="150px" w="150px" justify="center" alignItems="center">
         <QRCodeSVG value={qrString} />
       </Flex>
