@@ -13,7 +13,6 @@ const NetworkSelector = () => {
 
   return (
     <Box>
-      <Text>Selected Atom: {selectedAtom}</Text>
       <Select value={selectedAtom} onChange={handleAtomChange} mt={4} w="200px">
         <option value={devnetURL}>Devnet</option>
         <option value={testnetURL}>Testnet</option>
