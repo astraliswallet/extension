@@ -1,7 +1,7 @@
 import React from "react";
 import { Flex, Button } from "@chakra-ui/react";
 import { useAtom } from "jotai";
-import { walletCreatedAtom, walletAtom } from "../atoms";
+import { walletCreatedAtom, walletAtom, privateKeyAtom } from "../atoms";
 const solanaWeb3 = require('@solana/web3.js');
 
 function generateSolanaKeypair() {
@@ -18,16 +18,18 @@ function generateSolanaKeypair() {
 function Home() {
   const [walletCreated, setWalletCreated] = useAtom(walletCreatedAtom);
   const [wallet, setWallet] = useAtom(walletAtom);
+  const [privateKey, setPrivateKey] = useAtom(privateKeyAtom);
 
   // Handle createWallet function here
   const handleCreateWallet = () => {
     // generate key pair here
     const keypairs = generateSolanaKeypair();
     const pubkey = keypairs.publicKey;
-    const secretKey = keypairs.secretKey;
+    const privateKey = keypairs.secretKey;
 
-    setWallet(pubkey); // replace "Address" with the generated key pair
+    setWallet(pubkey); 
     setWalletCreated(true);
+    setPrivateKey(privateKey);
   };
 
   return (
