@@ -24,7 +24,6 @@ import { useAtom } from "jotai";
 import { walletAtom } from "../atoms";
 import NetworkSelector from "../Components/networkSelector";
 import UserBalance from "../Components/get_bal";
-
 // import { generateKey } from "../utils/utils";
 // import { useWallet } from "@solana/wallet-adapter-react";
 // import * as ed from '@noble/ed25519'

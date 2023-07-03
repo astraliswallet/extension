@@ -1,45 +1,68 @@
-const { Connection, clusterApiUrl } = require("@solana/web3.js");
-const { TOKEN_PROGRAM_ID } = require("@solana/spl-token");
-const { programs } = require("@metaplex/js");
+import * as web3 from '@solana/web3.js';
+import * as splToken from '@solana/spl-token';
+import { sign } from '@noble/ed25519';
 
-async function getMetadataPDA(mint, conn) {
-  const tokenMetadata = programs.metadata.Metadata.findByOwner(
-    conn, // connection
-    mint, // mint
-  );
-  return tokenMetadata.data.symbol;
-}
+const getProvider = async () => {
+  if ("solana" in window) {
+    const provider = window.solana;
+    if (provider.isPhantom) {
+      console.log("Is Phantom installed?  ", provider.isPhantom);
+      return provider;
+    }
+  } else {
+    window.open("https://www.phantom.app/", "_blank");
+  }
+};
 
-async function getTokenBalances() {
-  const MY_WALLET_ADDRESS = "FriELggez2Dy3phZeHHAdpcoEXkKQVkv6tx3zDtCVP8T";
-  const connection = new Connection(clusterApiUrl("devnet"), "confirmed");
 
-  const accounts = await connection.getParsedProgramAccounts(TOKEN_PROGRAM_ID, {
-    filters: [
-      {
-        dataSize: 165,
-      },
-      {
-        memcmp: {
-          offset: 32,
-          bytes: MY_WALLET_ADDRESS,
-        },
-      },
-    ],
-  });
+async function transferSOL() {
+  // Detecing and storing the phantom wallet of the user (creator in this case)
+  var provider = await getProvider();
+  console.log("Public key of the emitter: ",provider.publicKey.toString());
 
-  // Iterate over the accounts and extract the token name and amount
-  const tokenBalances = await Promise.all(
-    accounts.map(async (account) => {
-      const mintAddr = account.account.data.parsed.info.mint;
-      let tokenName = await getMetadataPDA(mintAddr);
-      const amount =
-        account.account.data.parsed.info.tokenAmount.uiAmountString;
-      return { tokenName, amount };
-    })
+  // Establishing connection
+  var connection = new web3.Connection(
+    web3.clusterApiUrl('devnet'),
   );
 
-  console.log(tokenBalances);
-}
+  // I have hardcoded my secondary wallet address here. You can take this address either from user input or your DB or wherever
+  var recieverWallet = new web3.PublicKey("9fuYBoRvgptU4fVZ8ZqvWTTc6oC68P4tjuSA2ySzn6Nv");
 
-getTokenBalances();
+  // Airdrop some SOL to the sender's wallet, so that it can handle the txn fee
+  var airdropSignature = await connection.requestAirdrop(
+    provider.publicKey,
+    web3.LAMPORTS_PER_SOL,
+  );
+
+  // Confirming that the airdrop went through
+  await connection.confirmTransaction(airdropSignature);
+  console.log("Airdropped");
+
+  var transaction = new web3.Transaction().add(
+    web3.SystemProgram.transfer({
+      fromPubkey: provider.publicKey,
+      toPubkey: recieverWallet,
+      lamports: web3.LAMPORTS_PER_SOL //Investing 1 SOL. Remember 1 Lamport = 10^-9 SOL.
+    }),
+  );
+
+  // Setting the variables for the transaction
+  transaction.feePayer = await provider.publicKey;
+  let blockhashObj = await connection.getRecentBlockhash();
+  transaction.recentBlockhash = await blockhashObj.blockhash;
+
+  // Transaction constructor initialized successfully
+  if(transaction) {
+    console.log("Txn created successfully");
+  }
+  
+  // Request creator to sign the transaction (allow the transaction)
+  let signed = await provider.signTransaction(transaction);
+  // The signature is generated
+  let signature = await connection.sendRawTransaction(signed.serialize());
+  // Confirm whether the transaction went through or not
+  await connection.confirmTransaction(new web3.TransactionConfirmationStrategy(signature, "processed"));
+
+  //Print the signature here
+  console.log("Signature: ", signature);
+}
