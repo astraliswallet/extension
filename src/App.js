@@ -9,7 +9,7 @@ function App() {
   const [walletCreated, setWalletCreated] = useAtom(walletCreatedAtom);
 
   return (
-    <Flex bg="#1E1E1E" h="500px" w="400px">
+    <Flex bg="#1E1E1E" h="600px" w="400px">
       {walletCreated ? <Main /> : <Home />}
     </Flex>
   );
