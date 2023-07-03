@@ -23,7 +23,8 @@ import SmallBtn from "../Components/SmallBtn";
 import { useAtom } from "jotai";
 import { walletAtom } from "../atoms";
 import NetworkSelector from "../Components/networkSelector";
-import UserBalance from '../Components/get_bal';
+import UserBalance from "../Components/get_bal";
+import GetSPLbalance from "../Components/get_token_balance";
 // import { generateKey } from "../utils/utils";
 // import { useWallet } from "@solana/wallet-adapter-react";
 // import * as ed from '@noble/ed25519'
@@ -128,6 +129,7 @@ function Main() {
           <GiReceiveMoney fontSize="50px" />
         </SmallBtn>
       </Flex>
+      <UserBalance /> SOL, <GetUSDCBalance /> USDC
       <Button
         fontFamily="Inter,italic"
         color="black"
@@ -153,7 +155,6 @@ function Main() {
       >
         <i>Deposit Crypto</i>
       </Button>
-
       {/* Topup Wallet */}
       <Modal isOpen={isTopupOpen} onCloseReceive={onCloseReceive}>
         <ModalOverlay />

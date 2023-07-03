@@ -31,7 +31,7 @@ function Userbalance() {
 
     const interval = setInterval(() => {
       fetchBalance();
-    }, 5000);
+    }, 100);
 
     return () => {
       clearInterval(interval);
