@@ -129,7 +129,7 @@ function Main() {
           <GiReceiveMoney fontSize="50px" />
         </SmallBtn>
       </Flex>
-      <UserBalance /> SOL, <GetUSDCBalance /> USDC
+      <UserBalance /> SOL
       <Button
         fontFamily="Inter,italic"
         color="black"

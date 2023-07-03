@@ -38,7 +38,7 @@ function Userbalance() {
     };
   }, [networkRPC, wallet]);
 
-  return <div>{convertLamportToSol(balance)}</div>;
+  return <div>{convertLamportToSol(balance)} SOL </div>;
 }
 
 
