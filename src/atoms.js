@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { atomWithStorage } from 'jotai/utils';
-import { devnetURL, testnetURL, mainnetURL } from "./constants";
+import { testnetURL } from "./constants";
 
 export const walletCreatedAtom = atomWithStorage(false);
 export const walletAtom = atomWithStorage('wallet', 'jasnsnc');

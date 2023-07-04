@@ -13,9 +13,10 @@ import {
   FormLabel,
 } from "@chakra-ui/react";
 import { useAtom } from "jotai";
-import { walletAtom } from "../atoms";
+import { walletAtom, privateKeyAtom, networkRPCAtom } from "../atoms";
 import { useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import SendSol from "./send_sol";
 
 function SmallBtn({
   children,
@@ -38,6 +39,9 @@ function SmallBtn({
   const [isOpen, setIsOpen] = useState(false);
   const [receiveOpen, setReceiveOpen] = useState(false);
 
+  const [privateKey] = useAtom(privateKeyAtom);
+  const [networkRPC] = useAtom(networkRPCAtom);
+
   const onOpen = () => setIsOpen(true);
   const onClose = () => setIsOpen(false);
 
@@ -52,7 +56,7 @@ function SmallBtn({
     }
   };
   const handleSubmit = () => {
-    handleSend(recipient, tokenType, amount);
+    SendSol(recipient, amount);
     onClose();
   };
 
@@ -87,7 +91,7 @@ function SmallBtn({
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent maxW="80%">
-          <ModalHeader>Send Tokens</ModalHeader>
+          <ModalHeader>Send SOL</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <FormControl>
@@ -104,14 +108,6 @@ function SmallBtn({
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
                 placeholder="Amount"
-              />
-            </FormControl>
-            <FormControl mt={4}>
-              <FormLabel>Token Type</FormLabel>
-              <Input
-                value={tokenType}
-                onChange={(e) => setTokenType(e.target.value)}
-                placeholder="Token Type"
               />
             </FormControl>
           </ModalBody>
@@ -150,6 +146,7 @@ function SmallBtn({
           </ModalFooter>
         </ModalContent>
       </Modal>
+      {/* Send Private Token  TODO */}
     </>
   );
 }

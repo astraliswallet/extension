@@ -49,6 +49,12 @@ function Main() {
   const [isTopupOpen, setIsTopupOpen] = useState(false);
   const [TopupAmount, setTopupAmount] = useState("");
   const qrString = wallet ? wallet : "";
+
+  const handleDeposit = () => {
+    // redireect to deposit page
+    window.location.href = "/deposit";
+  };
+
   // Handle Send Function
   const handleSend = (recipient, tokenType, amount) => {
     console.log(recipient, tokenType, amount);
@@ -128,7 +134,7 @@ function Main() {
           <GiReceiveMoney fontSize="50px" />
         </SmallBtn>
       </Flex>
-      <UserBalance /> SOL
+      <UserBalance />
       <Button
         fontFamily="Inter,italic"
         color="black"
@@ -150,7 +156,7 @@ function Main() {
         }}
         _active={{ bg: "#D9D9D9", borderColor: "black" }}
         _focus={{ boxShadow: "none" }}
-        onClick={() => setIsTopupOpen(true)}
+        onClick={handleDeposit}
       >
         <i>Deposit Crypto</i>
       </Button>

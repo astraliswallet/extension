@@ -16,7 +16,7 @@ async function getBalance(networkRPC, wallet) {
   return balance;
 }
 
-function Userbalance() {
+function UserBalance() {
   const [networkRPC] = useAtom(networkRPCAtom);
   const [wallet] = useAtom(walletAtom);
   const [balance, setBalance] = useState(null);
@@ -38,8 +38,11 @@ function Userbalance() {
     };
   }, [networkRPC, wallet]);
 
-  return <div>{convertLamportToSol(balance)} SOL </div>;
+  return (
+    <div>
+      <div>{convertLamportToSol(balance)} SOL </div>
+    </div>
+  );
 }
 
-
-export default Userbalance;
+export default UserBalance;
